@@ -1,0 +1,6 @@
+post /tasks request body >>
+
+{
+    "title": "Learn Flask2",
+    "description": "Learn flask2 api from python"
+}
