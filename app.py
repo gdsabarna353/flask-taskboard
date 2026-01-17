@@ -4,10 +4,9 @@ app = Flask(__name__)
 
 tasks = []
 
-@app.route("/health", methods=['GET'])
+@app.route("/health")
 def get_health():
-    if(request.method == 'GET'):
-        return jsonify({"status": "ok"}), 200
+    return jsonify({"status": "ok"}), 200
 
 @app.route('/tasks', methods=['GET', 'POST'])
 def post_tasks():
@@ -28,11 +27,11 @@ def post_tasks():
 @app.route("/tasks/<int:id>", methods=['PUT', 'DELETE'])
 def updateAndDelete_tasks(id):
     # global tasks
-    task_found = False
+    # task_found = False
     if(request.method == 'PUT'):
         for task in tasks:
             if(task['id'] == id):
-                task_found = True
+                # task_found = True
                 task['completed'] = True
                 return jsonify(task), 200
     elif(request.method == 'DELETE'):
@@ -43,7 +42,7 @@ def updateAndDelete_tasks(id):
                 tasks.remove(task)
                 # tasks.pop(int(id)-1)
                 return jsonify({"message": "Task deleted successfully"}), 200
-    if(task_found == False):
-        return jsonify({"error": "Task not found"}), 404
+    return jsonify({"error": "Task not found"}), 404
 
-app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
